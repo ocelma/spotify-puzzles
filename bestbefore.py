@@ -25,7 +25,6 @@ class bestbefore(object):
     def compute(self):
         # Test all possible options
         correct = []
-        all_failed = True
         for A, B, C in permutations([self.A, self.B, self.C]):
             try:
                 d = date(A, B, C)
@@ -37,10 +36,9 @@ class bestbefore(object):
                         continue
                     d = date(year, d.month, d.day)
                 correct.append(d.isoformat())
-                all_failed = False
             except ValueError:
                 continue
-        if all_failed:
+        if not correct:
             illegal('/'.join([A, B, C]))
         # Get earliest legal date
         return min(correct)
