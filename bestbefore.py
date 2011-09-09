@@ -26,9 +26,9 @@ class bestbefore(object):
         # Test all possible options
         correct = []
         all_failed = True
-        for _A, _B, _C in permutations([self.A, self.B, self.C]):
+        for A, B, C in permutations([self.A, self.B, self.C]):
             try:
-                d = date(_A, _B, _C)
+                d = date(A, B, C)
                 # Check year in MIN..MAX range
                 if d.year < self.YEAR:
                     year = d.year + self.YEAR
