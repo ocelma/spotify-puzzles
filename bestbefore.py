@@ -9,20 +9,18 @@ def illegal(error):
 
 class bestbefore(object):
     def __init__(self, A, B, C):
-        try:
-            self.MIN = 0
-            self.MAX = 2999
-            self.YEAR = 2000
+        self.MIN = 0
+        self.MAX = 2999
+        self.YEAR = 2000
     
-            self.A, self.B, self.C = (int(A), int(B), int(C))
-            # Check input range
-            if not ((self.MIN <= self.A and self.A <= self.MAX) and \
-                    (self.MIN <= self.B and self.B <= self.MAX) and \
-                    (self.MIN <= self.C and self.C <= self.MAX)):
-                illegal('/'.join([A, B, C]))
-        except:
-            #Error while processing params
-            illegal('/'.join([A, B, C]))
+        self.A, self.B, self.C = (int(A), int(B), int(C))
+        # Check input range
+        if not ((self.MIN <= self.A and self.A <= self.MAX) and \
+                (self.MIN <= self.B and self.B <= self.MAX) and \
+                (self.MIN <= self.C and self.C <= self.MAX)):
+            self.A = None
+            self.B = None
+            self.C = None
 
     def compute(self):
         # Test all possible options
@@ -59,6 +57,9 @@ if __name__ == "__main__":
         except:
             illegal(argv[1])
 
-    b = bestbefore(A, B, C)
-    print b.compute()
+    try:
+        b = bestbefore(A, B, C)
+        print b.compute()
+    except:
+        illegal('/'.join([A, B, C]))
 
