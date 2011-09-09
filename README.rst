@@ -11,6 +11,9 @@ Correct
 
 ::
 
+    $ python bestbefore.py data/date.test 
+    2111-12-31
+
     $ python bestbefore.py 2001/01/03
     2001-01-03
     
