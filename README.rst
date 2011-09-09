@@ -53,3 +53,20 @@ Errors
     $ python bestbefore.py 11/31/
     11/31/ is illegal
 
+TODOs
+~~~~~
+
+This does not work, and it should!
+Reason: datetime.date() does not allow 0's.
+
+::
+
+    $ python bestbefore.py 1/1/0
+    1/1/0 is illegal
+
+    $ python bestbefore.py 1/1/00
+    1/1/00 is illegal
+
+    $ python bestbefore.py 1/1/000
+    1/1/000 is illegal
+
