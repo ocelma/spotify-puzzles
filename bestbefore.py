@@ -1,6 +1,6 @@
-from sys import argv, exit
-from itertools import permutations
+from sys import argv
 from datetime import date
+from itertools import permutations
 
 def illegal(error):
     #Error processing params
@@ -13,7 +13,7 @@ class bestbefore(object):
         self.MAX = 2999
         self.YEAR = 2000
     
-        self.A, self.B, self.C = (int(A), int(B), int(C))
+        self.A, self.B, self.C = (A, B, C)
         # Check input range
         if not ((self.MIN <= self.A and self.A <= self.MAX) and \
                 (self.MIN <= self.B and self.B <= self.MAX) and \
@@ -24,40 +24,34 @@ class bestbefore(object):
 
     def compute(self):
         # Test all possible options
-        correct = []
+        all_dates = []
+        if not self.A and not self.B and not self.C:
+            return []
         for A, B, C in permutations([self.A, self.B, self.C]):
             try:
                 d = date(A, B, C)
                 # Check year in MIN..MAX range
-                if d.year < self.YEAR:
+                if d.year + self.YEAR <= self.MAX:
                     year = d.year + self.YEAR
-                    if year > self.MAX:
-                        # year not in MIN..MAX range!
-                        continue
                     d = date(year, d.month, d.day)
-                correct.append(d.isoformat())
+                else:
+                    continue
+                all_dates.append(d.isoformat())
             except ValueError:
                 continue
-        if not correct:
-            illegal('/'.join([A, B, C]))
-        # Get earliest legal date
-        return min(correct)
+        return all_dates
 
 if __name__ == "__main__":
-    A, B, C = [None, None, None]
-    # Read from a file
+    data = raw_input()
     try:
-        A, B, C = open(argv[1]).read().strip().split('/')
-    except IOError:
-        # If not found, then parse it as string
-        try:
-            A, B, C = argv[1].strip().split('/')
-        except:
-            illegal(argv[1])
-
-    try:
-        b = bestbefore(A, B, C)
-        print b.compute()
+        A, B, C = map(int, data.split('/'))
     except:
-        illegal('/'.join([A, B, C]))
+        illegal(data)
 
+    b = bestbefore(A, B, C)
+    all_dates = b.compute()
+    try:
+        # Get earliest legal date
+        print min(all_dates)
+    except ValueError:
+        illegal(data)
