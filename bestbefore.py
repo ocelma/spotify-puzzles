@@ -11,16 +11,9 @@ class bestbefore(object):
     def __init__(self, A, B, C):
         self.MIN = 0
         self.MAX = 2999
-        self.YEAR = 2000
+        self.MIN_YEAR = 2000
     
         self.A, self.B, self.C = (A, B, C)
-        # Check input range
-        if not ((self.MIN <= self.A and self.A <= self.MAX) and \
-                (self.MIN <= self.B and self.B <= self.MAX) and \
-                (self.MIN <= self.C and self.C <= self.MAX)):
-            self.A = None
-            self.B = None
-            self.C = None
 
     def compute(self):
         # Test all possible options
@@ -30,12 +23,13 @@ class bestbefore(object):
         for A, B, C in permutations([self.A, self.B, self.C]):
             try:
                 d = date(A, B, C)
-                # Check year in MIN..MAX range
-                if d.year + self.YEAR <= self.MAX:
-                    year = d.year + self.YEAR
+                # Check year in MIN_YEAR..MAX range
+                if d.year < self.MIN_YEAR:
+                    year = d.year + self.MIN_YEAR
+                    if year > self.MAX:
+                        # year not in range!
+                        continue
                     d = date(year, d.month, d.day)
-                else:
-                    continue
                 all_dates.append(d.isoformat())
             except ValueError:
                 continue
