@@ -41,12 +41,8 @@ if __name__ == "__main__":
     data = raw_input()
     try:
         A, B, C = map(int, data.split('/'))
-    except:
-        illegal(data)
-
-    b = bestbefore(A, B, C)
-    all_dates = b.compute()
-    try:
+        b = bestbefore(A, B, C)
+        all_dates = b.compute()
         # Get earliest legal date
         print min(all_dates)
     except ValueError:
