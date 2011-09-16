@@ -45,5 +45,5 @@ if __name__ == "__main__":
         all_dates = b.compute()
         # Get earliest legal date
         print min(all_dates)
-    except ValueError:
+    except:
         illegal(data)
