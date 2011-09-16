@@ -12,14 +12,16 @@ class bestbefore(object):
         self.MIN = 0
         self.MAX = 2999
         self.MIN_YEAR = 2000
+
+        if A == 0: A = 2000
+        if B == 0: B = 2000
+        if C == 0: C = 2000
     
         self.A, self.B, self.C = (A, B, C)
 
     def compute(self):
         # Test all possible options
         all_dates = []
-        if not self.A and not self.B and not self.C:
-            return []
         for A, B, C in permutations([self.A, self.B, self.C]):
             try:
                 d = date(A, B, C)
