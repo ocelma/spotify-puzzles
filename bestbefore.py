@@ -9,8 +9,7 @@ def illegal(error):
 
 class bestbefore(object):
     def __init__(self, A, B, C):
-        self.MIN = 0
-        self.MAX = 2999
+        self.MAX_YEAR = 2999
         self.MIN_YEAR = 2000
 
         if A == 0: A = 2000
@@ -25,10 +24,10 @@ class bestbefore(object):
         for A, B, C in permutations([self.A, self.B, self.C]):
             try:
                 d = date(A, B, C)
-                # Check year in MIN_YEAR..MAX range
+                # Check year in MIN_YEAR..MAX_YEAR range
                 if d.year < self.MIN_YEAR:
                     year = d.year + self.MIN_YEAR
-                    if year > self.MAX:
+                    if year > self.MAX_YEAR:
                         # year not in range!
                         continue
                     d = date(year, d.month, d.day)
